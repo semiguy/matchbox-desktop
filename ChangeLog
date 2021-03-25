@@ -1,0 +1,847 @@
+2008-12-04  Ross Burton  <ross@linux.intel.com>
+
+	* libtaku/taku-menu-desktop.c:
+	Load desktop files recursively.
+
+2008-09-29  Rob Bradford  <rob@linux.intel.com>
+
+	* libtaku/taku-menu-desktop.c (load_desktop_file), (_remove_item),
+	(taku_menu_init):
+	Use a simple hash to avoid having duplicate .desktop files.
+
+2008-09-24  Rob Bradford  <rob@linux.intel.com>
+
+	* libtaku/taku-menu-desktop.c (load_desktop_file):
+	Define err to NULL.
+
+2008-09-23  Ross Burton  <ross@linux.intel.com>
+
+	* libtaku/launcher-util.c:
+	Fix the fallback logic so that it doesn't spin infinitely.
+
+2008-09-16  Ross Burton  <ross@linux.intel.com>
+
+	* libtaku/launcher-util.c:
+	When icons are missing use the generic executable icon.
+
+2008-07-25  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* src/Makefile.am:
+	* src/main.c:
+	Add optional DBus support, and if enabled send a signal on the
+	system bus when the desktop has loaded.
+
+2008-06-27  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	Define G_QUEUE_INIT if it isn't already; fixes building with GLib <2.14
+
+2008-06-11  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/Makefile.am:
+	Don't set LDADD, it doesn't do anything useful for a static library.
+
+	* src/Makefile.am:
+	Reorder the linked libraries so that --as-needed works.
+
+2008-04-15  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	Remove AM_DISABLE_STATIC, as we don't use libtool.
+
+2008-02-19  Rob Bradford  <rob@openedhand.com>
+
+	* libtaku/taku-menu-desktop.c: (_remove_item), (inotify_event):
+	When an item is removed (due to an inotify event) also remove it from
+	the internal list of items and free the memory associated with it.
+
+2008-01-24  Ross Burton  <ross@openedhand.com>
+
+	* src/Makefile.am:
+	* src/moko-finger-scroll.[ch]:
+	* src/desktop.c:
+	Remove MokoFingerScroll widget, its too slow to be usable on the
+	Zaurus when rotated.  Maybe later.
+
+2008-01-21  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/inotify/*:
+	Resync (mostly) to latest gio.
+
+2008-01-18  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/inotify/*:
+	Don't use local copies of system headers which are useless because
+	they don't believe that ARM support inotify...
+
+	* libtaku/taku-menu-desktop.c:
+	Update to use system headers.	
+
+2008-01-18  Ross Burton  <ross@openedhand.com>
+
+	* src/moko-finger-scroll.c:
+	Fix compile warnings.
+
+2008-01-18  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/inotify/inotify-kernel.c:
+	If inotify_init() returns error, print the error.
+
+2008-01-18  Tomas Frydrych  <tf@o-hand.com>
+
+	* src/desktop.c:
+	Set default size of top level window (makes mbd-2 work with mbwm-2).
+	
+2007-12-20  Ross Burton  <ross@openedhand.com>
+
+	* src/Makefile.am:
+	Only link to libinotify if we HAVE_INOTIFY.
+
+2007-12-18  Ross Burton  <ross@openedhand.com>
+
+	* src/Makefile.am:
+	* src/moko-finger-scroll.[ch]:
+	Add MokoFingerScroll widget
+
+	* src/desktop.c:
+	Use MokoFingerScroll instead of a GtkScrolledWindow.
+
+2007-12-06  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-table.c: (reflow_foreach):
+	Attach hidden widgets to 0,1,0,1 so they don't force the table to be
+	bigger than it needs to be when filtering
+
+2007-12-06  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-menu-desktop.c: (taku_menu_desktop_get_executable):
+	* libtaku/taku-menu.h:
+	Rename taku_menu_item_get_binary_name ->
+	taku_menu_desktop_get_executable
+
+2007-12-06  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-menu-desktop.c: (taku_menu_item_get_binary_name):
+	* libtaku/taku-menu.h:
+	Add an accessor function for argv[0] on TakuMenuItem
+
+2007-11-30  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-menu-desktop.c: (inotify_event):
+	Correct typo ITEM_ADDED -> ITEM_REMOVED
+
+2007-11-12  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* src/main.c:
+	Don't link to or use threading, as we're not threaded anymore.
+
+2007-11-08  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/xutil.[ch]:
+	Remove x_get_workarea and replace it with x_monitor_workarea which
+	calls a function when the work area changes.
+
+	* src/desktop.c:
+	Use x_monitor_workarea so that workareas should work again (#609).
+
+2007-11-08  Ross Burton  <ross@openedhand.com>
+
+	* src/taku-category-bar.c:
+	Fix signal arguments so that the arrow buttons work (#610).
+
+2007-11-08  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/xutil.[ch]:
+	Update to the newer version of the _NET_ACTIVATE_WINDOW
+	specification.
+
+	* libtaku/launcher-util.c:
+	Update.
+
+2007-11-08  Ross Burton  <ross@openedhand.com>
+
+	* src/desktop.c:
+	Disable workarea support, turns out its not finished and breaks
+	too much.  Instead revert to old code which whilst it only works
+	with Sato, works well (#605).
+
+2007-11-07  Ross Burton  <ross@openedhand.com>
+
+	* src/taku-category-bar.c:
+	Set the categories list so that the popup menu appears, and fix
+	the activated callback so that it works. #603.
+
+2007-11-07  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	Don't return the collated key as the search key, as collation keys
+	are useless for everything but sorting. Fixes alpha keynav, #601.
+
+2007-11-07  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-queue-source.[ch]:
+	* libtaku/Makefile.am:
+	Mad phat GSource which monitors a GQueue.
+	
+	* libtaku/taku-launcher-tile.c:
+	Use the queue source instead of manually adding and firing.
+
+2007-11-07  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	Slept on this and realised my threading code was totally
+	broken. Because the thread aquired the GDK lock when it started it
+	wasn't actually multithreaded.
+
+	Rewrite to use an idle source and a work queue.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	Don't cache the icon size in a static variable, as the theme could
+	change it.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	Add gthread-2.0
+
+	* libtaku/taku-launcher-tile.c:
+	Load tile icons via a thread pool for speed.
+
+	* src/main.c:
+	Initialise threading.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/launcher-util.c:
+	Fix formatting and clean up the icon loading code.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/launcher-util.c:
+	Use a define for the missing image, and micro-optimise for the
+	hell of it.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	Use the correct argument name for the style_set function so I
+	don't get confused.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	Chain up the new style before re-arranging the tile.
+
+2007-11-06  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	Don't load the icon on creation, because we'll just receive
+	style-set shortly afterwards and reload it.  This makes the
+	desktop start a lot faster on my laptop (1.9s -> 1.2s).
+
+2007-11-02  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/launcher-util.c: (get_icon):
+	Use "gtk-missing-image" instead of "application-x-executable", as the 
+	former is a stock icon. Also, don't go into an infinite loop if it 
+	doesn't exist for whatever reason
+
+2007-11-02  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	* README:
+	Add orientation style property.  Thanks to Chris Lord for the
+	patch, based on work by Don Mahurin.
+
+2007-11-02  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	* README:
+	Add show-secondary-text style property. Thanks to Don Mahurin for
+	the patch this is based on.
+
+2007-11-01  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	Not sure how this got missed in the previous commit.
+
+2007-11-01  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/Makefile.am:
+	* libtaku/taku-menu.h:
+	* libtaku/taku-menu-desktop.c:
+	* libtaku/taku-launcher-tile.h:
+	* libtaku/launcher-util.[ch]:
+	* src/Makefile.am:
+	* src/desktop.[ch]:
+	* src/taku-category-bar.[ch]:
+	* src/main.c:
+	Hot new abstracted backend and more widgets.
+
+2007-11-01  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	Add properties for the labels and icon.
+
+2007-11-01  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-launcher-tile.c:
+	* libtaku/taku-table.c:
+	Remove unused boilerplate.
+	
+2007-11-01  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/Makefile.am:
+	Remove accidentaly copied line.
+
+2007-11-01  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* src/inotify/:
+	* src/Makefile.am:
+	* libtaku/inotify/:
+	* libtaku/Makefile.am:
+	Move the inotify code to libtaku/.
+	
+	* src/main.c:
+	Update includes.
+
+2007-10-18  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	Don't recreate Pango attribute lists, use a static list.
+
+2007-10-18  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-tile.c:
+	Remove unused GObject stubs, and only paint the background of the
+	tile is selected.
+
+2007-10-18  Ross Burton  <ross@openedhand.com>
+
+	* src/inotify/*.[ch]:
+	Re-sync with gio r662.
+
+2007-10-18  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/taku-icon-tile.c:
+	Formatting fixes, and never pass NULL to atk_object_set_name.
+
+2007-10-15  Ross Burton  <ross@openedhand.com>
+
+	* src/main.c:
+	Handle the workarea properly by positioning the desktop widgets,
+	not the window itself.  On Matchbox the desktop window is
+	fullscreen, do positioning it doens't work.
+
+2007-10-15  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	Fix the startup-notification help string to reflect reality.
+
+2007-10-04  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-icon-tile.c: (taku_icon_tile_finalize),
+	(taku_icon_tile_get_key), (taku_icon_tile_set_primary):
+	* libtaku/taku-table.c: (compare_tiles):
+	Cache a case-less collation key in TakuIconTile and use strcmp in
+	TakuTable to compare keys
+
+2007-10-01  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-tile.c: (taku_tile_enter_notify),
+	(taku_tile_leave_notify), (taku_tile_button_release),
+	(taku_tile_class_init):
+	* libtaku/taku-tile.h:
+	Use enter/leave events to judge whether to activate a tile instead of
+	mouse co-ordinates
+
+2007-10-01  Chris Lord  <chris@openedhand.com>
+
+	* libtaku/taku-tile.c: (taku_tile_button_release):
+	Only activate a tile when the mouse cursor is still inside the tile 
+	when the button is released
+
+2007-09-27  Ross Burton  <ross@openedhand.com>
+
+	* libtaku/launcher-util.c:
+	Deprecate the SingleInstance key, and replace it with
+	X-MB-SingleInstance.
+
+2007-09-17  Ross Burton  <ross@openedhand.com>
+
+	* */*:
+	Grand reorganisation.
+
+	taku-* and so are in libtaku/.
+
+	main and inotify/ are in src.
+
+2007-09-05  Chris Lord,,,  <chris@openedhand.com>
+
+	* launcher-util.h:
+	Add #ifndef/#define/#endif checks
+
+2007-09-05  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.[ch]:
+	Add const keyword.
+
+2007-09-05  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	* taku-launcher-tile.c:
+	* taku-icon-tile.c:
+	Rename TakuIcon icon size to taku-icon, to match GTK+.
+
+2007-08-20  Ross Burton  <ross@openedhand.com>
+
+	* taku-icon-tile.c:
+	Split out code to make a label bold and big.
+
+2007-08-20  Ross Burton  <ross@openedhand.com>
+
+	* taku-table.c:
+	* README:
+	Allow the theme to set the width of the tiles, defaulting to
+	30. Patch by Don Mahurin <dmlist@openright.org>.
+
+2007-08-20  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.c:
+	Fix compile failure when libsn isn't used.
+
+2007-08-09  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	* taku-icon-tile.c:
+	Add basic a11y names to the group buttons and tiles.
+
+2007-08-08  Ross Burton  <ross@openedhand.com>
+
+	* Makefile.am:
+	Fix distcheck.
+
+2007-08-01  Chris Lord,,,  <chris@openedhand.com>
+
+	* taku-launcher-tile.c: (taku_launcher_tile_remove_group),
+	(taku_launcher_tile_get_groups):
+	* taku-launcher-tile.h:
+	Add functions to remove and get a list of launcher tile groups
+
+2007-07-30  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.c:
+	More USE_LIBSN fixes, from OpenMoko.
+
+2007-07-15  Ross Burton  <ross@openedhand.com>
+
+	* taku-launcher-tile.[ch]:
+	Store the original filename, and add an accessor.
+
+	* configure.ac:
+	* Makefile.am:
+	* inotify/*:
+	Add inotify abstraction layer, copied from GVFS.
+
+	* main.c:
+	Monitor for desktop files being added and removed, and update the
+	tiles as relevant.
+
+2007-07-15  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Make the category labels bold and big.
+
+2007-07-15  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.c:
+	Only complete the startup context if it exists, fixing a crash if
+	the binary could not be found.
+
+2007-07-15  Ross Burton  <ross@openedhand.com>
+
+	* taku-tile.c:
+	* taku-launcher-tile.c:
+	Move the activation highlight into the launcher subclass.
+
+2007-07-14  Rob Bradford  <rob@openedhand.com>
+
+	* main.c: (main):
+	Set a size request on the arrows to 24x24.
+
+2007-07-13  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Don't try to switch category on failed focus if the current
+	category is NULL, i.e. there are no categories.
+
+2007-07-12  Ross Burton  <ross@openedhand.com>
+
+	* taku-tile.c:
+	Use SELECTED instead of PRELIGHT when a tile is focused.
+
+2007-07-12  Ross Burton  <ross@openedhand.com>
+
+	* taku-launcher-tile.c:
+	Fallback on button-sized images if the custom icon name isn't defined.
+
+2007-07-06  Chris Lord  <chris@openedhand.com>
+
+	* main.c: (main):
+	Fix crashing when no categories are available
+
+2007-07-05  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (load_data_dir), (main):
+
+	Make sure arrows request a square amount of space, where the 
+	vertical space is equal to the vertical amount of space requested
+	by the switcher label.
+
+2007-07-04  Ross Burton  <ross@burtonini.com>
+
+	* taku-launcher-tile.[ch]:
+	* main.c:
+	Rewrite the vfolder loading, change launcher tiles to have a list
+	of groups they are in, and handle all and fallback categories.
+
+2007-07-01  Ross Burton  <ross@openedhand.com>
+
+	* Makefile.am:
+	Use global flags to stop new automakes moaning.
+
+2007-06-14  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Don't destroy the window explicitly, if gtk_main() returns it has
+	already been destroyed.
+
+2007-06-14  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Listen for button presses on the group combo, so you can change
+	group in a single tap-and-drag, instead of requiring two taps.
+	Also means cleaner code.
+
+2007-06-06  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.c:
+	If GTK+ 2.11.3 is being used, call gdk_spawn() to get multihead
+	handling for free.  This isn't really a great issue on handhelds,
+	but its nice to be safe.
+
+2007-06-01  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.c:
+	Use g_spawn() instead of fork/exec directly, and if the spawn
+	fails stop the notification.
+
+2007-05-31  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.c:
+	Don't hard-code matchbox-desktop as the starter name, but use
+	g_get_prgname().
+
+2007-05-30  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* NEWS:
+	Version 2.0.
+
+2007-04-11  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (main):
+	Destroy window on exit.
+
+2007-04-06  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (set_category), (prev_category), (next_category), (main):
+	* taku-table.c: (taku_table_key_press_event),
+	(taku_table_finalize), (taku_table_class_init):
+	Focus first tile when switching categories by walking off the
+	screen using the keyboard.
+
+2007-04-06  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-icon-tile.c: (taku_icon_tile_set_icon_name):
+	Use correct icon size.
+
+	* taku-launcher-tile.c: (taku_launcher_tile_dispose),
+	(taku_launcher_tile_finalize), (taku_launcher_tile_clicked),
+	(taku_launcher_tile_matches_filter),
+	(taku_launcher_tile_class_init), (taku_launcher_tile_init),
+	(set_launcher_data), (taku_launcher_tile_new),
+	(taku_launcher_tile_for_desktop_file):
+	Update icon on style-set.
+
+2007-04-06  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (im_context_commit_cb), (taku_table_init):
+	Skip invisible tiles when searching. Do not set table to be
+	homogenous, as it causes invisible rows to be taken into account
+	when requesting size.
+
+2007-04-06  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (compare_tiles), (container_add),
+	(container_remove):
+	Add exact searching function for tile removal.
+
+2007-04-06  Jorn Baayen  <jorn@openedhand.com>
+
+	* TODO:
+	* main.c:
+	* taku-icon-tile.c: (taku_icon_tile_finalize),
+	(taku_icon_tile_class_init):
+	* taku-launcher-tile.c: (taku_launcher_tile_get_property),
+	(taku_launcher_tile_clicked), (taku_launcher_tile_matches_filter),
+	(taku_launcher_tile_class_init):
+	* taku-table.c: (compare_tiles), (im_context_commit_cb),
+	(on_tile_focus), (container_add), (calculate_columns),
+	(taku_table_size_allocate), (taku_table_focus_in_event),
+	(taku_table_focus_out_event), (taku_table_key_press_event),
+	(taku_table_finalize), (taku_table_init), (taku_table_new):
+	* taku-table.h:
+	* taku-tile.c: (taku_tile_new):
+	* taku-tile.h:
+
+	Add generic TakuTile methods get_search_key, get_sort_key, and
+	matches_filter. Implement them in IconTile and LauncherTile.
+	Make TakuTable work with generic TakuTiles again.
+
+2007-04-06  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (reflow_foreach), (reflow), (container_add),
+	(taku_table_get_property), (taku_table_set_property),
+	(taku_table_finalize), (taku_table_class_init), (taku_table_init),
+	(taku_table_new):
+	* taku-table.h:
+	Add filtering functionality.
+
+	* main.c: (popup_menu), (load_vfolder_dir), (main):
+	Use table filtering instead of a notebook.
+
+	* launcher-util.c: (launcher_destroy):
+	Plug leak.
+
+2007-04-05  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (popup_menu), (make_table), (load_data_dir), (main):
+
+	Add 'All' group. 
+
+	To be replaced with a GtkRecent-using recent group as soon as
+	GTK+ 2.10 is available for use.
+
+2007-03-30  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (switch_page_cb), (popup_menu), (make_table),
+	(load_vfolder_dir):
+	Don't store tab labels in (unused) GtkLabel widgets, but rather
+	store them as GObject data.
+
+2007-03-30  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (load_vfolder_dir):
+	Read order from Root.order.
+
+2007-03-29  Jorn Baayen  <jorn@openedhand.com>
+
+	* Makefile.am:
+	* launcher-util.c: (launcher_parse_desktop_file):
+	* launcher-util.h:
+	* main.c: (switch_to_page), (popup_menu), (load_vfolder_dir),
+	(load_data_dir), (remove_empty_tables), (main):
+	* taku-launcher-tile.c: (taku_launcher_tile_for_desktop_file):
+	* taku-launcher-tile.h:
+	Use matchbox vfolders.
+
+2007-03-27  Jorn Baayen  <jorn@openedhand.com>
+
+	* launcher-util.c: (launcher_parse_desktop_file), (launcher_start):
+	* launcher-util.h:
+	* xutil.c: (x_get_workarea):
+	* xutil.h:
+
+	Add (so far untested) Matchbox SingleInstance support.
+
+2007-03-26  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (reflow), (calculate_columns),
+	(taku_table_realize), (taku_table_init):
+	Default 'columns' to 0 in order to trigger an initial reflow when
+	room is allocated for 2 columns.
+
+	Also add a call to calculate_columns() in realize().
+
+2007-03-26  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (switch_page_cb):
+	Add a hack to stop GtkNotebook from focusing the page when
+	switching.
+
+	* taku-table.c: (on_tile_focus), (reflow_foreach), (reflow),
+	(container_add), (container_remove), (calculate_columns),
+	(taku_table_realize), (taku_table_unrealize),
+	(taku_table_size_allocate), (taku_table_style_set),
+	(taku_table_focus_in_event), (taku_table_focus_out_event),
+	(taku_table_key_press_event), (taku_table_get_property),
+	(taku_table_set_property), (taku_table_finalize),
+	(taku_table_class_init), (taku_table_init):
+	Add basic alpha keynav.
+
+2007-03-22  Ross Burton  <ross@openedhand.com>
+
+	* taku-table.c:
+	Make the tiles slightly wider, so you get two rows on the Zaurus.
+
+2007-03-22  Ross Burton  <ross@openedhand.com>
+
+	* *.[ch]:
+	Add license block.
+	
+	* AUTHORS:
+	Add Jorn.
+
+2007-03-22  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	Add --enable-standalone.
+
+2007-03-22  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (container_remove):
+	Handle dummy removal.
+
+2007-03-22  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (next_page), (load_data_dir), (make_table):
+	Handle failed 'focus' events by switching between pages.
+
+2007-03-22  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (popdown_menu), (popup_menu), (main):
+	Popup menu in response to 'clicked' signal.
+
+2007-03-20  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (reflow), (calculate_columns):
+	Check for GTK_WIDGET_VISIBLE instead of GTK_WIDGET_REALIZED.
+	Fixes weird inially-showing-just-one-launcher bug.
+
+2007-03-20  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (make_table), (main):
+	Only show tables when done loading. This reduces the number
+	of reflows and thus startup time.
+
+2007-03-20  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (reflow_foreach), (reflow), (sort),
+	(container_add), (container_remove), (calculate_columns),
+	(taku_table_size_allocate), (taku_table_style_set),
+	(taku_table_get_property), (taku_table_set_property),
+	(taku_table_finalize), (taku_table_class_init), (taku_table_init):
+	Add dummy widgets to fill the calculated number of columns when
+	not enough launchers are available.
+
+2007-03-16  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (main):
+	Name arrow buttons for theming.
+
+2007-03-16  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (reflow), (calculate_columns):
+
+	Always resize the table to the amount of columns calculated.
+
+2007-03-16  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Add a Games group.
+
+2007-03-14  Jorn Baayen  <jorn@openedhand.com>
+
+	* main.c: (position_menu), (popdown_menu), (popup_menu),
+	(load_data_dir), (make_table), (main):
+	Add arrows and menu for group switching. Needs some cleanup still.
+
+	* taku-table.c: (reflow_foreach):
+	Don't expand cells vertically.
+
+2007-03-12  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Basic and nasty hack to add groups.  Currently implemented with a
+	fixed mapping, and a notebook.
+
+2007-03-12  Ross Burton  <ross@openedhand.com>
+
+	* taku-launcher-tile.[ch]:
+	Add taku_launcher_tile_get_categories().
+
+2007-03-10  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-icon-tile.c: (taku_icon_tile_set_primary),
+	(taku_icon_tile_get_primary), (taku_icon_tile_set_secondary):
+	* taku-icon-tile.h:
+	Add get_{primary,secondary} methods.
+
+	* Makefile.am:
+	* eggsequence.c:
+	* eggsequence.h:
+	Add EggSequence.
+
+	* taku-table.c: (on_tile_focus), (reflow_foreach), (reflow),
+	(sort), (container_add), (search), (container_remove),
+	(calculate_columns), (taku_table_size_allocate),
+	(taku_table_style_set), (taku_table_get_property),
+	(taku_table_set_property), (taku_table_class_init),
+	(taku_table_init):
+	Use EggSequence to sort tiles.
+
+2007-03-05  Ross Burton  <ross@openedhand.com>
+
+	* launcher-util.[ch]:
+	Add categories.
+
+2007-03-04  Jorn Baayen  <jorn@openedhand.com>
+
+	* taku-table.c: (calculate_columns):
+	Request a table size of (1,1) (which effectively crops the table)
+	after the cells have been reflowed, not before.
+	
+	(taku_table_size_allocate):
+	Calculate columns before calling size_allocate on the parent
+	class. This removes an extra shuffle that could be seen when
+	resizing.
+
+2007-02-01  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Set window title.
+
+2007-02-01  Ross Burton  <ross@openedhand.com>
+
+	* xutil.[ch]:
+	* Makefile.am:
+	Add X utility functions.
+
+	* main.c:
+	Position the desktop according to the work area set by the window
+	manager.
+
+2007-01-31  Ross Burton  <ross@openedhand.com>
+
+	* main.c:
+	Be a desktop by default.
+
+2007-01-31  Ross Burton  <ross@openedhand.com>
+
+	Initial import.

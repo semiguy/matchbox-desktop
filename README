@@ -1,0 +1,29 @@
+Matchbox Desktop 2, a desktop system for handhelds using the GTK+ stack.
+===
+
+You can theme it somewhat using the GTK+ theme engine:
+
+style "desktop"
+{
+  font_name = "Sans 16"
+
+  # Normal tiles
+  bg[NORMAL] = "#008000"
+  fg[NORMAL] = "#FFFFFF"
+
+  # Tiles which were activated
+  bg[ACTIVE] = "#00CC00"
+  fg[ACTIVE] = "#FFFFFF"
+
+  # Tile which have focus
+  bg[SELECTED] = "#00A000"
+  fg[SELECTED] = "#FFFFFF"
+
+  # The width in characters of the tiles (default is 30)
+  TakuTable::cell-text-width = 30
+  # Whether or not to show the secondary text (default is 1)
+  TakuIconTile::show-secondary-text = 1
+  # Should the tile be arranged horizonally or vertically (default is horizonal)
+  TakuIconTile::orientation = horizontal
+}
+widget "TakuWindow.*" style "desktop"
