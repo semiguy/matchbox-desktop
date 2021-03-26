@@ -43,7 +43,13 @@ enum {
 static void
 tile_arrange (TakuIconTile *tile)
 {
-  GtkOrientation orientation = GTK_ORIENTATION_HORIZONTAL;
+  
+  #if 1  // cbcho modify --[
+    GtkOrientation orientation = GTK_ORIENTATION_VERTICAL;
+  #else
+    GtkOrientation orientation = GTK_ORIENTATION_HORIZONTAL;
+  #endif // cbcho modify --]
+
   gboolean show_secondary = TRUE;
   
   gtk_widget_style_get (GTK_WIDGET (tile),
@@ -236,14 +242,33 @@ taku_icon_tile_class_init (TakuIconTileClass *klass)
                                                                  TRUE,
                                                                  G_PARAM_READABLE));
 
-  gtk_widget_class_install_style_property (widget_class,
+  #if 1  // cbcho modify --[
+    gtk_widget_class_install_style_property (widget_class,
                                            g_param_spec_enum ("orientation",
                                                               "orientation",
                                                               "The orientation of the tile layout",
                                                               GTK_TYPE_ORIENTATION,
-                                                              GTK_ORIENTATION_HORIZONTAL,
+                                                              GTK_ORIENTATION_VERTICAL,
                                                               G_PARAM_READABLE));
+  
   gtk_widget_class_install_style_property (widget_class,
+                                           g_param_spec_uint ("taku-icon-size",
+                                                              "Taku icon size",
+                                                              "Icon size used by all Taku Icons",
+                                                              0,
+                                                              256,
+                                                              96,
+                                                              G_PARAM_READABLE));
+  #else
+    gtk_widget_class_install_style_property (widget_class,
+                                            g_param_spec_enum ("orientation",
+                                                                "orientation",
+                                                                "The orientation of the tile layout",
+                                                                GTK_TYPE_ORIENTATION,
+                                                                GTK_ORIENTATION_HORIZONTAL,
+                                                                G_PARAM_READABLE));
+
+    gtk_widget_class_install_style_property (widget_class,
                                            g_param_spec_uint ("taku-icon-size",
                                                               "Taku icon size",
                                                               "Icon size used by all Taku Icons",
@@ -251,6 +276,7 @@ taku_icon_tile_class_init (TakuIconTileClass *klass)
                                                               256,
                                                               64,
                                                               G_PARAM_READABLE));
+  #endif // cbcho modify --]
 
 }
 
@@ -269,7 +295,12 @@ make_bold (GtkLabel *label)
     attr->end_index = G_MAXUINT;
     pango_attr_list_insert (list, attr);
     
-    attr = pango_attr_scale_new (1.2);
+    #if 1  // cbcho modify --[
+      attr = pango_attr_scale_new (1.3);
+    #else
+      attr = pango_attr_scale_new (1.2);
+    #endif // cbcho modify --]
+    
     attr->start_index = 0;
     attr->end_index = G_MAXUINT;
     pango_attr_list_insert (list, attr);
