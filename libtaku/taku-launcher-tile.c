@@ -180,12 +180,13 @@ taku_launcher_tile_new_from_item (TakuMenuItem *item)
                         "taku-icon-size", &size,
                         NULL);
  
-  taku_icon_tile_set_primary (TAKU_ICON_TILE (tile), 
-                              taku_menu_item_get_name (item));
-  
-  #if 0 // cbcho modify remove description                             
-  taku_icon_tile_set_secondary (TAKU_ICON_TILE (tile),
-                                taku_menu_item_get_description (item));
+  #if 0 // cbcho modify remove description
+    taku_icon_tile_set_primary (TAKU_ICON_TILE (tile), 
+                                taku_menu_item_get_name (item));
+    
+                                
+    taku_icon_tile_set_secondary (TAKU_ICON_TILE (tile),
+                                  taku_menu_item_get_description (item));
   #endif
 
   taku_icon_tile_set_pixbuf (TAKU_ICON_TILE (tile),
