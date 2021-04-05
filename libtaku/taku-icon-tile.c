@@ -46,12 +46,13 @@ tile_arrange (TakuIconTile *tile)
   
   #if 1  // cbcho modify --[
     GtkOrientation orientation = GTK_ORIENTATION_VERTICAL;
+    gboolean show_secondary = FALSE;
   #else
     GtkOrientation orientation = GTK_ORIENTATION_HORIZONTAL;
+    
+    gboolean show_secondary = TRUE;
   #endif // cbcho modify --]
-
-  gboolean show_secondary = TRUE;
-  
+ 
   gtk_widget_style_get (GTK_WIDGET (tile),
                         "show-secondary-text", &show_secondary,
                         "orientation", &orientation,
@@ -238,7 +239,7 @@ taku_icon_tile_class_init (TakuIconTileClass *klass)
                                                               "Taku icon size",
                                                               "Icon size used by all Taku Icons",
                                                               0,
-                                                              209,
+                                                              190,
                                                               190,
                                                               G_PARAM_READABLE));
   #else
@@ -296,12 +297,8 @@ make_bold (GtkLabel *label)
     attr->end_index = G_MAXUINT;
     pango_attr_list_insert (list, attr);
     
-    #if 1  // cbcho modify --[
-      attr = pango_attr_scale_new (1.3);
-    #else
-      attr = pango_attr_scale_new (1.2);
-    #endif // cbcho modify --]
-    
+    attr = pango_attr_scale_new (1.2);
+
     attr->start_index = 0;
     attr->end_index = G_MAXUINT;
     pango_attr_list_insert (list, attr);
