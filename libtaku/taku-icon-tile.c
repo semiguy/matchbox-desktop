@@ -223,7 +223,26 @@ taku_icon_tile_class_init (TakuIconTileClass *klass)
                                                         GDK_TYPE_PIXBUF,
                                                         G_PARAM_READWRITE));
 
-  g_object_class_install_property (object_class, PROP_PRIMARY,
+
+  #if 1  // cbcho modify 96 -> 190 --[
+    gtk_widget_class_install_style_property (widget_class,
+                                           g_param_spec_enum ("orientation",
+                                                              "orientation",
+                                                              "The orientation of the tile layout",
+                                                              GTK_TYPE_ORIENTATION,
+                                                              GTK_ORIENTATION_VERTICAL,
+                                                              G_PARAM_READABLE));
+  
+  gtk_widget_class_install_style_property (widget_class,
+                                           g_param_spec_uint ("taku-icon-size",
+                                                              "Taku icon size",
+                                                              "Icon size used by all Taku Icons",
+                                                              0,
+                                                              256,
+                                                              190,
+                                                              G_PARAM_READABLE));
+  #else
+    g_object_class_install_property (object_class, PROP_PRIMARY,
                                    g_param_spec_string ("primary", "primary",
                                                         "The primary string",
                                                         "",
@@ -242,24 +261,6 @@ taku_icon_tile_class_init (TakuIconTileClass *klass)
                                                                  TRUE,
                                                                  G_PARAM_READABLE));
 
-  #if 1  // cbcho modify --[
-    gtk_widget_class_install_style_property (widget_class,
-                                           g_param_spec_enum ("orientation",
-                                                              "orientation",
-                                                              "The orientation of the tile layout",
-                                                              GTK_TYPE_ORIENTATION,
-                                                              GTK_ORIENTATION_VERTICAL,
-                                                              G_PARAM_READABLE));
-  
-  gtk_widget_class_install_style_property (widget_class,
-                                           g_param_spec_uint ("taku-icon-size",
-                                                              "Taku icon size",
-                                                              "Icon size used by all Taku Icons",
-                                                              0,
-                                                              256,
-                                                              96,
-                                                              G_PARAM_READABLE));
-  #else
     gtk_widget_class_install_style_property (widget_class,
                                             g_param_spec_enum ("orientation",
                                                                 "orientation",
