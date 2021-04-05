@@ -238,7 +238,7 @@ taku_icon_tile_class_init (TakuIconTileClass *klass)
                                                               "Taku icon size",
                                                               "Icon size used by all Taku Icons",
                                                               0,
-                                                              256,
+                                                              209,
                                                               190,
                                                               G_PARAM_READABLE));
   #else
